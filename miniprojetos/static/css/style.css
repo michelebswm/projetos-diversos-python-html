@@ -1,0 +1,83 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+.container {
+	max-width: 1280px;
+	margin: 0 auto;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.content-projects {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.list-utilidades,
+.jogos {
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(3, 3fr);
+	flex: 1 0 auto;
+}
+
+.item-projects {
+	background-color: #d8e3ec;
+	text-transform: uppercase;
+	border-radius: 3px;
+	min-width: 200px;
+	font-size: 1.5rem;
+	margin: 20px;
+	padding: 30px;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+.item-projects:hover {
+	transform: scale(1.03);
+}
+
+.senha {
+	background-color: #6390f0;
+	color: #fff;
+}
+
+.moeda {
+	background-color: #7ac74c;
+	color: #fff;
+}
+
+.jogo {
+	background-color: #ee8130;
+}
+
+@media screen and (max-width: 1249px) {
+	.list-utilidades,
+	.jogos {
+		grid-template-columns: repeat(2, 3fr);
+	}
+}
+
+@media screen and (max-width: 813px) {
+	.list-utilidades,
+	.jogos {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+@media screen and (max-width: 440px) {
+	.item-projects {
+		font-size: 1rem;
+		margin: 20px;
+		padding: 25px;
+	}
+}
