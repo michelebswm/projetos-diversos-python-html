@@ -12,8 +12,18 @@
 			href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
 			rel="stylesheet"
 		/>
+		{% block head %}
+		{% endblock %}
 	</head>
 	<body>
+		<!-- Mensagens redirecionadas via flash -->
+		{% with mensagens = get_flashed_messages(with_categories=True) %}
+		<!-- with para pegar a lista de mensagens-->
+		{% if mensagens %} {% for categoria, mensagem in mensagens %}
+		<!--Cada mensagem tem categoria e mensagem -->
+		<div class="alert {{ categoria }}">{{ mensagem }}</div>
+		{% endfor %} {% endif %} {% endwith %}
+
 		{% block body %}
 		{% endblock %}
 	</body>

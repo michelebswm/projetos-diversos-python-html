@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+{% endblock %}
+
+{% block body %}
+<div class="container-geradorsenha">
+	<div class="title-geradorsenha">Gerador de Senhas</div>
+	<form method="POST" action="" class="content-form-geradorsenha">
+		{{ form_gerarsenha.csrf_token }}
+		<div class="form-group">
+			{{ form_gerarsenha.comprimento_senha.label(class="label-geradorsenha") }}
+			{{ form_gerarsenha.comprimento_senha(class="input-geradorsenha") }}
+		</div>
+		<div class="form-group">
+			{{ form_gerarsenha.itens.label(class="label-geradorsenha") }}
+			{% for subfield in form_gerarsenha.itens %}
+			<div class="form-check">
+				{{ subfield(class="form-check-input") }}
+				{{ subfield.label(class="form-check-label") }}
+			</div>
+
+			{% endfor %}
+		</div>
+		<div class="form-group">
+			{{ form_gerarsenha.btn_gerar_senha(class="btn-geradorsenha") }}
+		</div>
+	</form>
+</div>
+<!-- Se possuir senha gerada irá exibir -->
+	{% if senha_gerada %}
+		<div class="senha-gerada">
+			<div class="label-senha-gerada">
+				Senha Gerada:
+			</div>
+			<div class="result">
+				<span>{{ senha_gerada }}</span>
+				<i class="fas fa-copy" id="copy-icon"></i>
+			</div>
+		</div>
+	{% endif %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
