@@ -93,6 +93,7 @@ a {
 }
 
 .title-geradorsenha {
+	margin-bottom: 10px;
 	font-size: 2rem;
 	font-weight: bold;
 	color: #006fff;
@@ -119,9 +120,6 @@ a {
 	font-size: 1rem;
 	font-weight: bold;
 	text-align: center;
-}
-
-.form-check-input {
 }
 
 .form-check-label {
@@ -175,5 +173,27 @@ a {
 		font-size: 1rem;
 		margin: 20px;
 		padding: 25px;
+	}
+
+	.container-geradorsenha {
+		margin: 10px;
+	}
+
+	.title-geradorsenha {
+		font-size: 1.1rem;
+	}
+
+	.label-geradorsenha {
+		font-size: 0.8rem;
+	}
+}
+
+@media screen and (max-width: 331px) {
+	.form-group {
+		padding: 20px 40px;
+	}
+
+	.form-check-label {
+		font-size: 0.8rem;
 	}
 }
