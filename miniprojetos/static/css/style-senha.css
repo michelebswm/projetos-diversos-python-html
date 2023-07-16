@@ -1,0 +1,94 @@
+.container-geradorsenha {
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.title-geradorsenha {
+	margin-bottom: 10px;
+	font-size: 2rem;
+	font-weight: bold;
+	color: #006fff;
+}
+.content-form-geradorsenha {
+	border: 1px solid #006fff;
+	border-radius: 5px;
+}
+
+.form-group {
+	padding: 20px 80px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.label-geradorsenha {
+	font-size: 1.3rem;
+	margin-bottom: 5px;
+}
+
+.input-geradorsenha {
+	height: 40px;
+	font-size: 1rem;
+	font-weight: bold;
+	text-align: center;
+}
+
+.form-check-label {
+	font-weight: bold;
+}
+
+.btn-geradorsenha {
+	background-color: #006fff;
+	color: #fff;
+	padding: 5px;
+	border: 1px solid transparent;
+	border-radius: 7px;
+	margin: 0px 30px;
+	font-weight: bold;
+	align-items: center;
+}
+
+.senha-gerada {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.label-senha-gerada {
+	font-size: 1rem;
+	font-weight: bold;
+	color: #69b4ff;
+}
+
+.result {
+	justify-content: center;
+}
+
+/* Estilização da responsividade */
+
+@media screen and (max-width: 440px) {
+	.container-geradorsenha {
+		margin: 10px;
+	}
+
+	.title-geradorsenha {
+		font-size: 1.1rem;
+	}
+
+	.label-geradorsenha {
+		font-size: 0.8rem;
+	}
+}
+
+@media screen and (max-width: 331px) {
+	.form-group {
+		padding: 20px 40px;
+	}
+
+	.form-check-label {
+		font-size: 0.8rem;
+	}
+}
