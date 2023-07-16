@@ -75,6 +75,11 @@ a {
 	color: #fff;
 }
 
+.citacao {
+	background-color: #e9dd37;
+	color: #1e1e1e;
+}
+
 .moeda {
 	background-color: #7ac74c;
 	color: #fff;
@@ -82,6 +87,33 @@ a {
 
 .jogo {
 	background-color: #ee8130;
+}
+
+/* Estilização Navbar */
+header {
+	padding: 10px 40px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-shadow: 4px 2px 2px rgba(0, 0, 0, 0.2);
+	background: linear-gradient(45deg, #e5ebe6, #1f1d1b);
+}
+.navbar-image {
+	width: 50px;
+	transition: transform 0.3s;
+}
+
+.navbar-image:hover {
+	transform: rotate(360deg);
+}
+
+.content-navbar {
+	font-weight: bold;
+	color: #fff;
+}
+
+.content-navbar:hover {
+	transform: scale(1.03);
 }
 
 /* Estilização Pagina Gerador de Senha */
@@ -154,6 +186,7 @@ a {
 	justify-content: center;
 }
 
+/* Estilização da responsividade */
 @media screen and (max-width: 1249px) {
 	.list-utilidades,
 	.jogos {

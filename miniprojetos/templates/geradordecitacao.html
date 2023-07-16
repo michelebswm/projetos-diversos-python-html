@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-citacao.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<div class="container-geradorcitacao">
+    <div class="title-gerarcitacao">
+    Gerador de Frases / Citações
+    </div>
+    <div class="description-gerarcitacao">
+        Este gerador de citações consome dados da API <a href="https://github.com/hebertcisco/pensador-api#readme">Pensador</a>
+    </div>
+     <form method="POST" action="" class="content-form-geradorcitacao">
+        {{ form_citacaopensador.csrf_token }}
+        <div class="item-form">
+            {{ form_citacaopensador.assunto.label(class="label-formcitacao") }}
+            {{ form_citacaopensador.assunto(class="input-formcitacao") }}
+        </div>
+         <div class="msg-alert">
+             Digite duas ou mais palavras para consultar
+         </div>
+        <div class="item-form">
+            {{ form_citacaopensador.quantidade.label(class="label-formcitacao") }}
+            {{ form_citacaopensador.quantidade(class="input-formcitacao quantidade") }}
+        </div>
+        <div class="item-form">
+            {{ form_citacaopensador.btn_gerar_pensador(class="btn-gerarcitacao") }}
+        </div>
+    </form>
+    <p>Citações geradas:</p>
+     <ul>
+        {% for citacao in lista_citacoes %}
+        <div class="text-citacao">
+            <li>{{ citacao }}</li>
+        </div>
+        {% endfor %}
+    </ul>
+    <hr>
+    <div class="description-gerarcitacao">
+        Este gerador de citações consome dados da API <a href="https://api.kanye.rest">kanye rest</a>
+    </div>
+    <form method="POST" action="" class="content-form-geradorcitacao">
+        {{ form_geradorcitacao.csrf_token }}
+        <div class="item-form">
+            {{ form_geradorcitacao.btn_gerar_citacao(class="btn-gerarcitacao") }}
+        </div>
+    </form>
+    <p>Citações geradas:</p>
+    <div class="text-citacao">
+        {{ citacao_traduzida }}
+    </div>
+
+</div>
+
+
+
+{% endblock %}

@@ -1,6 +1,8 @@
 from flask import Flask, render_template, url_for, request, flash
 from miniprojetos import app
-from miniprojetos.forms import FormGeradorSenha
+from miniprojetos.forms import FormGeradorSenha, FormGeradorCitacao, FormGeradorCitacaoPensador
+import requests
+from translate import Translator
 import secrets
 import string
 
@@ -29,3 +31,37 @@ def gerador_senha():
             flash('Nenhuma opção selecionada', 'alert-danger')
 
     return render_template("geradordesenha.html", form_gerarsenha=form_gerarsenha, senha_gerada=senha_gerada)
+
+
+@app.route('/geradordecitacao', methods=['GET', 'POST'])
+def gerador_citacao():
+    form_geradorcitacao = FormGeradorCitacao()
+    form_citacaopensador = FormGeradorCitacaoPensador()
+    citacao_traduzida = ''
+    lista_citacoes = []
+    if form_geradorcitacao.validate_on_submit() and 'btn_gerar_citacao' in request.form:
+        url = 'https://api.kanye.rest'
+        response = requests.get(url)
+        if response.status_code == 200:
+            response = response.json()
+            translator = Translator(to_lang="pt")
+            citacao_traduzida = translator.translate(response['quote'])
+        else:
+            citacao_traduzida = 'Não foi possível obter as citações'
+    if form_citacaopensador.validate_on_submit() and 'btn_gerar_pensador' in request.form:
+        assunto = form_citacaopensador.assunto.data
+        assunto = assunto.replace(' ', '+')
+        quantidade = form_citacaopensador.quantidade.data
+        url = f'https://pensador-api.vercel.app/?term={assunto}&max={quantidade}'
+        response = requests.get(url)
+        if response.status_code == 200:
+            response = response.json()
+            if not response['frases']:
+                lista_citacoes.append("Não foi possível obter as citações do Pensador com o assunto escolhido")
+            else:
+                for item in response['frases']:
+                    lista_citacoes.append(item['texto'])
+        else:
+            lista_citacoes.append("Não foi possível obter as citações do Pensador")
+
+    return render_template('geradordecitacao.html', form_geradorcitacao=form_geradorcitacao, form_citacaopensador=form_citacaopensador,  citacao_traduzida=citacao_traduzida, lista_citacoes=lista_citacoes)

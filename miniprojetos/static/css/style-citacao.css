@@ -1,0 +1,100 @@
+/* Estilização pagina Gerador de Citações */
+.container-geradorcitacao {
+	display: flex;
+	flex-direction: column;
+	padding: 20px 40px;
+}
+
+.title-gerarcitacao {
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-size: 2rem;
+	text-align: center;
+	background: linear-gradient(45deg, #cecb09, #dbaa08);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.description-gerarcitacao {
+	padding: 20px 0px;
+	font-weight: bold;
+}
+
+.content-form-geradorcitacao {
+	max-width: 500px;
+	border: 1px solid #cecb09;
+	border-radius: 8px;
+	padding: 25px;
+}
+
+.item-form {
+	display: flex;
+	flex-direction: column;
+	padding: 0px 8px;
+}
+
+.label-formcitacao {
+	font-weight: bold;
+	padding-top: 8px;
+	font-size: 0.8rem;
+}
+
+.msg-alert {
+	font-size: 0.7rem;
+	color: #ff2600;
+	padding: 0px 8px;
+}
+
+.input-formcitacao {
+	height: 40px;
+	padding-left: 8px;
+}
+
+.quantidade {
+	text-align: center;
+}
+
+.btn-gerarcitacao {
+	background-color: #ffc700;
+	border: 1px solid transparent;
+	border-radius: 8px;
+	width: 130px;
+	padding: 5px;
+	margin: 8px auto;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.btn-gerarcitacao:hover {
+	filter: brightness(120%);
+}
+
+.text-citacao {
+	font-style: italic;
+	margin: 10px 0px;
+	text-align: justify;
+}
+
+li {
+	list-style-type: circle;
+}
+
+@media screen and (max-width: 425px) {
+	.title-gerarcitacao {
+		font-size: 1.5rem;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	.title-gerarcitacao {
+		font-size: 1.3rem;
+	}
+	.text-citacao {
+		font-size: 0.8rem;
+		text-align: left;
+	}
+	.description-gerarcitacao {
+		font-size: 0.9em !important;
+	}
+}

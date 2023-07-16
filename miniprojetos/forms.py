@@ -9,3 +9,12 @@ class FormGeradorSenha(FlaskForm):
 
     def get_selected_items(self):
         return self.itens.data
+
+class FormGeradorCitacao(FlaskForm):
+    btn_gerar_citacao = SubmitField('Gerar Citação')
+
+
+class FormGeradorCitacaoPensador(FlaskForm):
+    assunto = StringField('Assunto', validators=[DataRequired()])
+    quantidade = IntegerField('Quntidade de citações a serem geradas', validators=[DataRequired(), NumberRange(min=1, max=10, message='Limite a ser gerado')])
+    btn_gerar_pensador = SubmitField('Gerar Citação')

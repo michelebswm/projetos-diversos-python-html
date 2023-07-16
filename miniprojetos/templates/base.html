@@ -5,26 +5,28 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>MiniProjetos - Compilação</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/style.css') }}"
+		/>
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
 			rel="stylesheet"
 		/>
-		{% block head %}
-		{% endblock %}
+		{% block head %} {% endblock %}
 	</head>
 	<body>
+		<!--Incluindo uma barra de navegação feita em outro arquivo html-->
+		{% include 'navbar.html' %}
+
 		<!-- Mensagens redirecionadas via flash -->
 		{% with mensagens = get_flashed_messages(with_categories=True) %}
 		<!-- with para pegar a lista de mensagens-->
 		{% if mensagens %} {% for categoria, mensagem in mensagens %}
 		<!--Cada mensagem tem categoria e mensagem -->
 		<div class="alert {{ categoria }}">{{ mensagem }}</div>
-		{% endfor %} {% endif %} {% endwith %}
-
-		{% block body %}
-		{% endblock %}
+		{% endfor %} {% endif %} {% endwith %} {% block body %} {% endblock %}
 	</body>
 </html>
