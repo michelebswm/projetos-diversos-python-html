@@ -39,6 +39,18 @@ a {
 	padding: 12px 20px;
 }
 
+.text-danger,
+.invalid-feedback {
+	padding-top: 2px;
+	color: #ff4500;
+	font-size: 13px;
+}
+
+.is-invalid {
+	border-color: #e6051b;
+	box-shadow: 0 0 0 2px #f5c6cb;
+}
+
 .content-projects {
 	display: flex;
 	justify-content: center;
@@ -78,6 +90,10 @@ a {
 .citacao {
 	background-color: #e9dd37;
 	color: #1e1e1e;
+}
+
+.tradutor {
+	background-color: #ffcccb;
 }
 
 .moeda {

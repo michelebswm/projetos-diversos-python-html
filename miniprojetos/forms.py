@@ -18,3 +18,9 @@ class FormGeradorCitacaoPensador(FlaskForm):
     assunto = StringField('Assunto', validators=[DataRequired()])
     quantidade = IntegerField('Quntidade de citações a serem geradas', validators=[DataRequired(), NumberRange(min=1, max=10, message='Limite a ser gerado')])
     btn_gerar_pensador = SubmitField('Gerar Citação')
+
+
+class FormTradutor(FlaskForm):
+    texto = TextAreaField('Digitar texto', validators=[DataRequired(), Length(1, 5000)])
+    btn_traduzir = SubmitField('play_arrow')
+    btn_limpar = SubmitField('delete_sweep')

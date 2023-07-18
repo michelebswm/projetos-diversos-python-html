@@ -1,8 +1,9 @@
 from flask import Flask, render_template, url_for, request, flash
 from miniprojetos import app
-from miniprojetos.forms import FormGeradorSenha, FormGeradorCitacao, FormGeradorCitacaoPensador
+from miniprojetos.forms import FormGeradorSenha, FormGeradorCitacao, FormGeradorCitacaoPensador, FormTradutor
 import requests
-from translate import Translator
+# from translate import Translator
+from googletrans import Translator
 import secrets
 import string
 
@@ -65,3 +66,18 @@ def gerador_citacao():
             lista_citacoes.append("Não foi possível obter as citações do Pensador")
 
     return render_template('geradordecitacao.html', form_geradorcitacao=form_geradorcitacao, form_citacaopensador=form_citacaopensador,  citacao_traduzida=citacao_traduzida, lista_citacoes=lista_citacoes)
+
+
+@app.route('/tradutordetexto', methods=['GET', 'POST'])
+def traduzir_texto():
+    texto_final = ''
+    form_tradutor = FormTradutor()
+    if form_tradutor.validate_on_submit() and 'btn_traduzir' in request.form:
+        texto = form_tradutor.texto.data
+        translator = Translator()
+        traducao = translator.translate(texto, dest='pt')
+        texto_final = traducao.text
+    if form_tradutor.validate_on_submit() and 'btn_limpar' in request.form:
+        form_tradutor.texto.data = ''
+        texto_final = ''
+    return render_template('tradutordetexto.html', form_tradutor=form_tradutor, texto_final=texto_final)

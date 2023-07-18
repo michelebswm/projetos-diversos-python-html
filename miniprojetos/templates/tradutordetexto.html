@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style-tradutor.css') }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+{% endblock %}
+
+{% block body %}
+<div class="container-tradutor">
+    <div class="title-tradutor">Tradutor de Texto</div>
+    <p class="description">Este utilitário realiza a tradução de textos detectando o idioma inserido automaticamente.</p>
+    <form method="POST" action="" class="form-tradutor">
+        {{ form_tradutor.csrf_token }}
+        <div class="item-form">
+            {% if form_tradutor.texto.errors %}
+                {{ form_tradutor.texto(class="input-form-tradutor is-invalid", placeholder="Digite o texto aqui") }}
+                <div class="invalid-feedback">
+                    {% for erro in form_tradutor.texto.errors %}
+                        {{ erro }}
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form_tradutor.texto(class="input-form-tradutor", placeholder="Digite o texto aqui") }}
+            {% endif %}
+
+        </div>
+        <div class="group-btn">
+            <div class="item-btn">
+                {{ form_tradutor.btn_traduzir(class="material-symbols-outlined btn-traduzir") }}
+            </div>
+            <div class="item-btn">
+                {{ form_tradutor.btn_limpar(class="material-symbols-outlined btn-limpar") }}
+            </div>
+        </div>
+        <div class="item-form">
+            <textarea class="input-form-tradutor">{{ texto_final }}</textarea>
+        </div>
+
+    </form>
+</div>
+{% endblock %}
