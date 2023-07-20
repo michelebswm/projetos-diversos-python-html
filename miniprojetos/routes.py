@@ -1,8 +1,8 @@
 from flask import Flask, render_template, url_for, request, flash
 from miniprojetos import app
-from miniprojetos.forms import FormGeradorSenha, FormGeradorCitacao, FormGeradorCitacaoPensador, FormTradutor
+from miniprojetos.forms import FormGeradorSenha, FormGeradorCitacao, FormGeradorCitacaoPensador, FormTradutor, FormConversorMoeda
 import requests
-# from translate import Translator
+import time
 from googletrans import Translator
 import secrets
 import string
@@ -18,14 +18,12 @@ def gerador_senha():
     if form_gerarsenha.validate_on_submit() and 'btn_gerar_senha' in request.form:
         tamanho = form_gerarsenha.comprimento_senha.data
         itens_selecionados = form_gerarsenha.get_selected_items()
-
         itens = ''
         if itens_selecionados:
             if 'hexdigits' in itens_selecionados:
                 itens += string.hexdigits
             if 'punctuation' in itens_selecionados:
                 itens += string.punctuation
-
         if itens:
             senha_gerada = ''.join(secrets.choice(itens) for _ in range(tamanho))
         else:
@@ -45,8 +43,8 @@ def gerador_citacao():
         response = requests.get(url)
         if response.status_code == 200:
             response = response.json()
-            translator = Translator(to_lang="pt")
-            citacao_traduzida = translator.translate(response['quote'])
+            translator = Translator()
+            citacao_traduzida = translator.translate(response['quote'], dest='pt').text
         else:
             citacao_traduzida = 'Não foi possível obter as citações'
     if form_citacaopensador.validate_on_submit() and 'btn_gerar_pensador' in request.form:
@@ -81,3 +79,36 @@ def traduzir_texto():
         form_tradutor.texto.data = ''
         texto_final = ''
     return render_template('tradutordetexto.html', form_tradutor=form_tradutor, texto_final=texto_final)
+
+
+def consulta_cotacao_atual(moeda):
+    data_atual = time.strftime('%m-%d-%Y')
+    url = f"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda='{moeda}'&@dataCotacao='{data_atual}'&$top=1&$format=json&$select=cotacaoCompra"
+    response = requests.get(url)
+    if response.status_code == 200:
+        response = response.json()
+        valor_moeda = response['value'][0]['cotacaoCompra']
+    else:
+        valor_moeda = 'Cotação não localizada na API do Banco Central do Brasil (BCB)'
+    return valor_moeda
+
+@app.route('/conversordemoedas', methods=['GET', 'POST'])
+def converte_moedas():
+    form_conversormoeda = FormConversorMoeda()
+    moeda_origem = ''
+    moeda_destino = ''
+    conversao = ''
+    if form_conversormoeda.validate_on_submit():
+        if form_conversormoeda.moeda_origem.data != 'REAL':
+            moeda_origem = consulta_cotacao_atual(form_conversormoeda.moeda_origem.data)
+        else:
+            moeda_origem = 1.0
+        if form_conversormoeda.moeda_destino.data != 'REAL':
+            moeda_destino = consulta_cotacao_atual(form_conversormoeda.moeda_destino.data)
+        else:
+            moeda_destino = 1.0
+        try:
+            conversao = moeda_origem / moeda_destino
+        except:
+            conversao = 'Não definido'
+    return render_template('conversordemoedas.html', form_conversormoeda=form_conversormoeda, moeda_origem=moeda_origem, moeda_destino=moeda_destino, conversao=conversao)

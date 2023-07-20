@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style-conversormoedas.css') }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+{% endblock %}
+
+{% block body %}
+
+<h1>Conversor de Moedas</h1>
+
+<div class="container-formconversormoeda">
+    <form method="POST" action="" class="form-conversormoeda">
+        {{ form_conversormoeda.csrf_token }}
+        <div class="group-form">
+            {{ form_conversormoeda.moeda_origem.label(class="label-formconversor") }}
+            {{ form_conversormoeda.moeda_origem(class="input-formconversor") }}
+        </div>
+        <div class="group-form">
+            {{ form_conversormoeda.moeda_destino.label(class="label-formconversor") }}
+            {{ form_conversormoeda.moeda_destino(class="input-formconversor") }}
+        </div>
+        <div class="group-btn">
+            {{ form_conversormoeda.btn_converter_moeda(class="btn-converter") }}
+        </div>
+    </form>
+
+    <span>Converter de: </span>{{ moeda_origem }} <br>
+    <span>Para: </span>{{ moeda_destino }} <br>
+    <span>Conversão: </span>{{ conversao }} <br>
+</div>
+
+{% endblock %}
