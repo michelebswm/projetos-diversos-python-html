@@ -1,5 +1,6 @@
 .container-geradorsenha {
 	margin-top: 30px;
+	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

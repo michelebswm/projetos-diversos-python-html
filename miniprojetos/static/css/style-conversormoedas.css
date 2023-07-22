@@ -1,0 +1,145 @@
+.container-formconversormoeda {
+	min-height: 100vh;
+	background-color: #1e1e1e;
+}
+
+.form-conversormoeda {
+	display: flex;
+	flex-direction: column;
+	border: 1px solid red;
+	border-radius: 5px;
+	padding: 0.8rem;
+	max-width: 400px;
+	margin: auto;
+}
+
+.group-form {
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	flex-wrap: wrap;
+}
+
+h2,
+.title-formconversormoeda {
+	margin-bottom: 0.8rem;
+	padding: 40px;
+	font-size: 2rem;
+	text-transform: uppercase;
+	color: #eaf3f3;
+	text-align: center;
+}
+
+.label-formconversor {
+	font-size: 0.8rem;
+	font-weight: bold;
+	color: #c1caca;
+	padding: 0.8rem;
+}
+
+.input-formconversor {
+	padding-left: 8px;
+	width: 300px;
+	padding: 1rem;
+	box-shadow: 0px 2px 3px rgb(190, 46, 46);
+	border-radius: 45px;
+}
+
+select::-ms-expand {
+	display: none;
+}
+
+select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+select option {
+	background-color: #e69898;
+}
+
+select option:hover {
+	background-color: #bea512;
+}
+
+.group-btn {
+	display: flex;
+	justify-content: center;
+	padding: 1rem;
+	gap: 15px;
+}
+
+.btn-converter {
+	width: 100px;
+	background-color: #803939;
+	color: rgb(18, 187, 32);
+	padding: 0.5rem 0.8rem;
+	transition: background-color 0.3s ease;
+}
+
+.btn-limpar {
+	width: auto !important;
+	padding: 0px 5px;
+	background-color: #803939;
+	font-weight: bold;
+	color: #fff;
+}
+
+.btn-limpar:hover,
+.btn-converter:hover {
+	cursor: pointer;
+	filter: brightness(150%);
+	transform: scale(1.03);
+}
+
+.result-conversao {
+	padding: 50px;
+	display: flex;
+	flex-wrap: wrap;
+	color: #fff;
+	gap: 10px;
+}
+
+.item-conversao {
+	border: 1px solid #7f0000;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	width: 200px;
+	text-align: center;
+	transition: 0.5s;
+}
+
+.item-conversao:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0 10px #ff0000;
+}
+
+.title-item {
+	color: #cc4f34;
+	padding: 4px;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: bold;
+	border-bottom: 1px solid #ee6c4d;
+}
+
+.cotacao-moeda {
+	padding: 4px;
+}
+
+.resultado {
+	padding: 4px;
+}
+@media screen and (max-width: 340px) {
+	.title-formconversormoeda {
+		font-size: 1.5rem;
+	}
+}
+
+@media screen and (max-width: 326px) {
+	.input-formconversor {
+		width: 100%;
+	}
+}

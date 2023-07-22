@@ -7,11 +7,14 @@
 
 {% block body %}
 
-<h1>Conversor de Moedas</h1>
-
 <div class="container-formconversormoeda">
+    <div class="title-formconversormoeda">Conversor de Moedas</div>
     <form method="POST" action="" class="form-conversormoeda">
         {{ form_conversormoeda.csrf_token }}
+        <div class="group-form">
+            {{ form_conversormoeda.data_cotacao.label(class="label-formconversor") }}
+            {{ form_conversormoeda.data_cotacao(class="input-formconversor") }}
+        </div>
         <div class="group-form">
             {{ form_conversormoeda.moeda_origem.label(class="label-formconversor") }}
             {{ form_conversormoeda.moeda_origem(class="input-formconversor") }}
@@ -21,13 +24,30 @@
             {{ form_conversormoeda.moeda_destino(class="input-formconversor") }}
         </div>
         <div class="group-btn">
-            {{ form_conversormoeda.btn_converter_moeda(class="btn-converter") }}
+            {{ form_conversormoeda.btn_converter_moeda(class="btn-converter material-symbols-outlined") }}
+            {{ form_conversormoeda.btn_limpar_consulta(class="btn-limpar") }}
         </div>
     </form>
 
-    <span>Converter de: </span>{{ moeda_origem }} <br>
-    <span>Para: </span>{{ moeda_destino }} <br>
-    <span>Conversão: </span>{{ conversao }} <br>
+     {% if historico %}
+        <h2>Historico de Consultas</h2>
+        <div class="result-conversao">
+
+                {% for consulta in historico %}
+                <div class="item-conversao">
+                    <div class="title-item">Converter de: </div>
+                    <div class="label-moeda">{{ consulta.moeda_origem_label }}</div>
+                    <div class="cotacao-moeda">{{ consulta.moeda_origem_cotacao }}</div>
+                    <div class="title-item">Para: </div>
+                    <div class="label-moeda">{{ consulta.moeda_destino_label }}</div>
+                    <div class="cotacao-moeda">{{ consulta.moeda_destino_cotacao }}</div>
+                    <div class="title-item">Conversão:</div>
+                    <div class="resultado">{{ consulta.conversao }}</div>
+                </div>
+                {% endfor %}
+    {% endif %}
+    </div>
 </div>
+
 
 {% endblock %}

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField, SelectMultipleField, widgets, SelectField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField, SelectMultipleField, widgets, SelectField, DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 
 class FormGeradorSenha(FlaskForm):
@@ -40,6 +40,8 @@ lista_moedas = [
     ("REAL", "Real")
 ]
 class FormConversorMoeda(FlaskForm):
+    data_cotacao = DateField('Data da Cotação', validators=[DataRequired()])
     moeda_origem = SelectField('Converter de ', choices=lista_moedas, validators=[DataRequired()])
     moeda_destino = SelectField('Para', choices=lista_moedas, validators=[DataRequired()])
-    btn_converter_moeda = SubmitField('Converter')
+    btn_converter_moeda = SubmitField('paid')
+    btn_limpar_consulta = SubmitField('Limpar Histórico')

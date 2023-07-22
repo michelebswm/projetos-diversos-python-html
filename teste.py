@@ -29,8 +29,13 @@ def consulta_cotacao_atual(moeda):
     data_atual = time.strftime('%m-%d-%Y')
     url = f"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda='{moeda}'&@dataCotacao='{data_atual}'&$top=1&$format=json&$select=cotacaoCompra"
     response = requests.get(url)
-    response = response.json()
-    valor_moeda = response['value'][0]['cotacaoCompra']
+    valor_moeda = 'Cotação não localizada na API do Banco Central do Brasil (BCB)'
+    if response.status_code == 200:
+        response = response.json()
+        print(response)
+        if response['value']:
+            valor_moeda = response['value'][0]['cotacaoCompra']
+
     return valor_moeda
 
-
+print(consulta_cotacao_atual('GBP'))

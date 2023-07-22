@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, flash
+from flask import Flask, render_template, url_for, request, flash, session, redirect
 from miniprojetos import app
 from miniprojetos.forms import FormGeradorSenha, FormGeradorCitacao, FormGeradorCitacaoPensador, FormTradutor, FormConversorMoeda
 import requests
@@ -6,6 +6,8 @@ import time
 from googletrans import Translator
 import secrets
 import string
+
+
 
 @app.route("/")
 def home():
@@ -81,34 +83,64 @@ def traduzir_texto():
     return render_template('tradutordetexto.html', form_tradutor=form_tradutor, texto_final=texto_final)
 
 
-def consulta_cotacao_atual(moeda):
-    data_atual = time.strftime('%m-%d-%Y')
+def consulta_cotacao_atual(moeda, data):
+    data_atual = data.strftime('%m-%d-%Y')
     url = f"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda='{moeda}'&@dataCotacao='{data_atual}'&$top=1&$format=json&$select=cotacaoCompra"
     response = requests.get(url)
+    valor_moeda = 'Cotação não localizada na API do Banco Central do Brasil (BCB)'
     if response.status_code == 200:
         response = response.json()
-        valor_moeda = response['value'][0]['cotacaoCompra']
-    else:
-        valor_moeda = 'Cotação não localizada na API do Banco Central do Brasil (BCB)'
+        if response['value']:
+            valor_moeda = response['value'][0]['cotacaoCompra']
+
     return valor_moeda
 
 @app.route('/conversordemoedas', methods=['GET', 'POST'])
 def converte_moedas():
     form_conversormoeda = FormConversorMoeda()
-    moeda_origem = ''
-    moeda_destino = ''
-    conversao = ''
-    if form_conversormoeda.validate_on_submit():
-        if form_conversormoeda.moeda_origem.data != 'REAL':
-            moeda_origem = consulta_cotacao_atual(form_conversormoeda.moeda_origem.data)
+
+    # Verifica se já existe um histórico na sessão e cria uma lista vazia caso contrário
+    historico = session.get('historico', [])
+
+    if form_conversormoeda.validate_on_submit() and 'btn_converter_moeda' in request.form:
+        data_cotacao = form_conversormoeda.data_cotacao.data
+        moeda_origem = form_conversormoeda.moeda_origem.data
+        moeda_destino = form_conversormoeda.moeda_destino.data
+        # usamos a função next() para encontrar o label (descrição) correspondente ao valor selecionado no campo SelectField
+        moeda_origem_label = next((label for value, label in form_conversormoeda.moeda_origem.choices if value == moeda_origem), None)
+        moeda_destino_label = next((label for value, label in form_conversormoeda.moeda_destino.choices if value == moeda_destino), None)
+
+        if moeda_origem == 'REAL':
+            moeda_origem_cotacao = 1.0
         else:
-            moeda_origem = 1.0
-        if form_conversormoeda.moeda_destino.data != 'REAL':
-            moeda_destino = consulta_cotacao_atual(form_conversormoeda.moeda_destino.data)
+            moeda_origem_cotacao = consulta_cotacao_atual(moeda_origem, data_cotacao)
+
+        if moeda_destino == 'REAL':
+            moeda_destino_cotacao = 1.0
         else:
-            moeda_destino = 1.0
+            moeda_destino_cotacao = consulta_cotacao_atual(moeda_destino, data_cotacao)
+
         try:
-            conversao = moeda_origem / moeda_destino
+            conversao = moeda_origem_cotacao / moeda_destino_cotacao
         except:
             conversao = 'Não definido'
-    return render_template('conversordemoedas.html', form_conversormoeda=form_conversormoeda, moeda_origem=moeda_origem, moeda_destino=moeda_destino, conversao=conversao)
+
+        # Adiciona as informações da consulta atual ao histórico
+        consulta_atual = {
+            'moeda_origem_label': moeda_origem_label,
+            'moeda_origem_cotacao': moeda_origem_cotacao,
+            'moeda_destino_label': moeda_destino_label,
+            'moeda_destino_cotacao': moeda_destino_cotacao,
+            'conversao': conversao
+        }
+        historico.append(consulta_atual)
+        # Atualiza a sessão com o novo histórico
+        session['historico'] = historico
+
+    if form_conversormoeda.validate_on_submit() and 'btn_limpar_consulta' in request.form:
+        # Remove a chave 'historico' da sessão
+        session.pop('historico', None)
+        return redirect(url_for('converte_moedas'))
+
+    return render_template('conversordemoedas.html', form_conversormoeda=form_conversormoeda, historico=historico)
+
