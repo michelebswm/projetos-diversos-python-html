@@ -1,41 +1,24 @@
-import requests
-import time
-def conversor(moedaOrigem, moedaDestino, quantidade):
-    dic_moeda = {
-        'USDBRL': None,
-        'EURBRL': None,
-        'BTCBRL': None
-    }
 
-    url = f'http://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,BTC-BRL'
-    response = requests.get(url)
-    if response.status_code == 200:
-        response = response.json()
-        for moeda in dic_moeda:
-            dic_moeda[moeda] = response[moeda]['bid']
-    else:
-        print('Moeda não encontrada')
 
-    dic_moeda['REAL'] = 1.0
-    print(dic_moeda)
+# Conversor - Comprimento
+medida_origem = 'Micrometro'
+medida_destino = 'Nanometro'
+quantidade = 1
 
-    conversao = (quantidade * float(dic_moeda[moedaOrigem])) / float(dic_moeda[moedaDestino])
-    return conversao
+# Dicionário de conversão
+conversao_dict = {
+    'Angstrom': {'Angstrom': 1, 'Centimetro': 1e-8, 'Decimetro': 1e-9, 'Metro': 1e-10, 'Micrometro': 0.1, 'Milimetro': 1e-7, 'Nanometro': 1e-11, 'Quilometro': 1e-13, 'sigla': 'Å'},
+    'Centimetro': {'Angstrom': 100000000, 'Centimetro': 1, 'Decimetro': 0.1, 'Metro': 0.01, 'Micrometro': 10000, 'Milimetro': 10, 'Nanometro': 10000000, 'Quilometro': 0.00001, 'sigla': 'cm'},
+    'Decimetro': {'Angstrom': 1000000000, 'Centimetro': 10, 'Decimetro': 1, 'Metro': 0.1, 'Micrometro': 100000, 'Milimetro': 100, 'Nanometro': 100000000, 'Quilometro': 0.0001, 'sigla': 'dm'},
+    'Metro': {'Angstrom': 10000000000, 'Centimetro': 100, 'Decimetro': 10, 'Metro': 1, 'Micrometro': 1000000, 'Milimetro': 1000, 'Nanometro': 1000000000, 'Quilometro': 0.001, 'sigla': 'm'},
+    'Micrometro': {'Angstrom': 10000000, 'Centimetro': 0.0001, 'Decimetro': 0.00001, 'Metro': 0.000001, 'Micrometro': 1, 'Milimetro': 0.001, 'Nanometro': 1000, 'Quilometro': 1e-9, 'sigla': 'µm'},
+    'Milimetro': {'Angstrom': 10000000000, 'Centimetro': 0.1, 'Decimetro': 0.01, 'Metro': 0.001, 'Micrometro': 1000, 'Milimetro': 1, 'Nanometro': 1000000, 'Quilometro': 1e-6, 'sigla': 'mm'},
+    'Nanometro': {'Angstrom': 1000000000, 'Centimetro': 1e-7, 'Decimetro': 1e-8, 'Metro': 1e-9, 'Micrometro': 0.001, 'Milimetro': 1e-6, 'Nanometro': 1, 'Quilometro': 1e-12, 'sigla': 'nm'},
+    'Quilometro': {'Angstrom': 10000000000000, 'Centimetro': 100000, 'Decimetro': 10000, 'Metro': 1000, 'Micrometro': 1000000000, 'Milimetro': 1000000, 'Nanometro': 1000000000000, 'Quilometro': 1, 'sigla': 'km'}
+}
 
-# result = conversor(moedaOrigem='EURBRL', moedaDestino='REAL', quantidade=1)
-# print(result)
+if medida_origem in conversao_dict and medida_destino in conversao_dict[medida_origem]:
+    conversao = quantidade * conversao_dict[medida_origem][medida_destino]
+    sigla = conversao_dict[medida_origem]['sigla']
 
-def consulta_cotacao_atual(moeda):
-    data_atual = time.strftime('%m-%d-%Y')
-    url = f"https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda='{moeda}'&@dataCotacao='{data_atual}'&$top=1&$format=json&$select=cotacaoCompra"
-    response = requests.get(url)
-    valor_moeda = 'Cotação não localizada na API do Banco Central do Brasil (BCB)'
-    if response.status_code == 200:
-        response = response.json()
-        print(response)
-        if response['value']:
-            valor_moeda = response['value'][0]['cotacaoCompra']
-
-    return valor_moeda
-
-print(consulta_cotacao_atual('GBP'))
+print("Conversão: {} {}".format(conversao, sigla))

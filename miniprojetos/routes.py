@@ -144,3 +144,7 @@ def converte_moedas():
 
     return render_template('conversordemoedas.html', form_conversormoeda=form_conversormoeda, historico=historico)
 
+
+@app.route('/conversordeunidades')
+def conversor_unidades():
+    return render_template('conversorunidades.html')

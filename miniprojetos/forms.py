@@ -45,3 +45,4 @@ class FormConversorMoeda(FlaskForm):
     moeda_destino = SelectField('Para', choices=lista_moedas, validators=[DataRequired()])
     btn_converter_moeda = SubmitField('paid')
     btn_limpar_consulta = SubmitField('Limpar Histórico')
+
