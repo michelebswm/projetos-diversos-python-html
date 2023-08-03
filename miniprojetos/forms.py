@@ -55,11 +55,13 @@ lista_unidades = [
     ('Milimetro','Milímetro (mm)'),
     ('Micrometro','Micrômetro (µm)'),
     ('Nanometro','Nanômetro (nm)'),
-    ('Angstrom','Angstrom (Å)')
+    ('Angstrom','Angstrom (Å)'),
+    ('Milha','Milha (mi)')
 ]
 
 class FormConversorUnidades(FlaskForm):
     unidade_origem = SelectField('Converter de ', choices=lista_unidades, validators=[DataRequired()])
     unidade_destino = SelectField('Para ', choices=lista_unidades, validators=[DataRequired()])
     quantidade = FloatField('Quantidade', validators=([DataRequired(), NumberRange(0, 1E+20)]))
+    casas_decimais = IntegerField('Casas decimais', validators=[DataRequired(), NumberRange(min=1, max=12, message='Limite a ser gerado')])
     btn_converter_unidade = SubmitField('Converter')

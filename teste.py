@@ -1,7 +1,7 @@
 
 
 # Conversor - Comprimento
-def converte_un(quantidade, medida_origem, medida_destino):
+def converte_un(quantidade, medida_origem, medida_destino, casas_decimais):
     conversao_dict = {
         'Angstrom': {'Angstrom': 1, 'Centimetro': 1e-8, 'Decimetro': 1e-9, 'Metro': 1e-10, 'Micrometro': 0.1, 'Milimetro': 1e-7, 'Nanometro': 1e-11, 'Quilometro': 1e-13, 'sigla': 'Å'},
         'Centimetro': {'Angstrom': 100000000, 'Centimetro': 1, 'Decimetro': 0.1, 'Metro': 0.01, 'Micrometro': 10000, 'Milimetro': 10, 'Nanometro': 10000000, 'Quilometro': 0.00001, 'sigla': 'cm'},
@@ -15,12 +15,14 @@ def converte_un(quantidade, medida_origem, medida_destino):
 
     if medida_origem in conversao_dict and medida_destino in conversao_dict[medida_origem]:
         conversao = quantidade * conversao_dict[medida_origem][medida_destino]
+        conversao = '{:,.{casas}f}'.format(conversao, casas = casas_decimais).replace('.','|').replace(',','.').replace('|', ',')
         sigla = conversao_dict[medida_origem]['sigla']
         return conversao, sigla
 
-medida_origem = 'Micrometro'
+medida_origem = 'Milimetro'
 medida_destino = 'Nanometro'
-quantidade = 1
+quantidade = 623
+casas_decimais = 5
 
-conversao, sigla = converte_un(quantidade, medida_origem, medida_destino)
+conversao, sigla = converte_un(quantidade, medida_origem, medida_destino, casas_decimais)
 print(conversao, sigla)

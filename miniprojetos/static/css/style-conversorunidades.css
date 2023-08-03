@@ -9,6 +9,8 @@
 	padding-top: 2rem;
 	margin-bottom: 2rem;
 	text-align: center;
+	text-transform: uppercase;
+	box-shadow: 0rem 0.0625rem 0.125px rgba(0, 102, 140);
 }
 
 .content-form-convunidades {
@@ -46,4 +48,25 @@ select:focus {
 }
 
 .btn-form {
+	cursor: pointer;
+	background-color: #00668c;
+	color: #fff;
+	padding: 0.5rem;
+	max-width: 9rem;
+	transition: 0, 3s;
+}
+
+.btn-form:hover {
+	transform: scale(1.03);
+}
+
+.content-result {
+	padding: 1rem;
+	text-align: center;
+}
+
+.content-result p {
+	font-weight: bold;
+	color: #00668c;
+	text-decoration: underline;
 }

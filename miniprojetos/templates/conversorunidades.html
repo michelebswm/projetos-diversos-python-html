@@ -31,10 +31,26 @@
                 {{ form_conversorunidades.quantidade(class="input-form") }}
             {% endif %}
         </div>
+        <div class="group-form">
+            {{ form_conversorunidades.casas_decimais.label(class="label-form") }}
+            {% if form_conversorunidades.casas_decimais.errors %}
+                {{ form_conversorunidades.casas_decimais(class="input-form is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for erro in form_conversorunidades.casas_decimais.errors %}
+                        {{ erro }}
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form_conversorunidades.casas_decimais(class="input-form") }}
+            {% endif %}
+        </div>
          <div class="group-form">
             {{ form_conversorunidades.btn_converter_unidade(class="btn-form") }}
         </div>
     </form>
-    <p>{{ conversao }} {{ sigla }}</p>
+    <div class="content-result">
+         <p>{{ conversao }} {{ sigla }}</p>
+    </div>
+
 </div>
 {% endblock %}

@@ -105,6 +105,11 @@ a {
 	background-color: #ee8130;
 }
 
+.medida {
+	background-color: #00668c;
+	color: #fff;
+}
+
 /* Estilização Navbar */
 header {
 	padding: 10px 40px;
