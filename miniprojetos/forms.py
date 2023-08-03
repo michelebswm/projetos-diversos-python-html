@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField, SelectMultipleField, widgets, SelectField, DateField
+from wtforms import StringField, PasswordField, SubmitField, FloatField, TextAreaField, IntegerField, SelectMultipleField, widgets, SelectField, DateField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 
 class FormGeradorSenha(FlaskForm):
@@ -46,3 +46,20 @@ class FormConversorMoeda(FlaskForm):
     btn_converter_moeda = SubmitField('paid')
     btn_limpar_consulta = SubmitField('Limpar Histórico')
 
+
+lista_unidades = [
+    ('Quilometro','Quilômetro (km)'),
+    ('Metro','Metro (m)'),
+    ('Decimetro','Decímetro (dm)'),
+    ('Centimetro','Centímetro (cm)'),
+    ('Milimetro','Milímetro (mm)'),
+    ('Micrometro','Micrômetro (µm)'),
+    ('Nanometro','Nanômetro (nm)'),
+    ('Angstrom','Angstrom (Å)')
+]
+
+class FormConversorUnidades(FlaskForm):
+    unidade_origem = SelectField('Converter de ', choices=lista_unidades, validators=[DataRequired()])
+    unidade_destino = SelectField('Para ', choices=lista_unidades, validators=[DataRequired()])
+    quantidade = FloatField('Quantidade', validators=([DataRequired(), NumberRange(0, 1E+20)]))
+    btn_converter_unidade = SubmitField('Converter')

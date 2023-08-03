@@ -1,0 +1,49 @@
+.container-convunidade {
+	min-height: 100vh;
+	background-color: #f5f4f1;
+}
+
+.title {
+	font-size: 2rem;
+	font-weight: bold;
+	padding-top: 2rem;
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+.content-form-convunidades {
+	border: 2px solid #00668c;
+	border-radius: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	max-width: 450px;
+	margin: auto;
+	padding: 1rem;
+	background-color: #f9f9f9;
+}
+
+.group-form {
+	padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.label-form {
+	font-weight: bold;
+}
+
+.input-form {
+	height: 2rem;
+	padding-left: 0.3125rem;
+}
+
+select option {
+	background-color: #d4eaf7;
+}
+
+select:focus {
+	border-color: blue;
+}
+
+.btn-form {
+}

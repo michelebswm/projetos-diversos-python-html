@@ -6,5 +6,35 @@
 {% endblock %}
 
 {% block body %}
-
+<div class="container-convunidade">
+    <div class="title">Conversor de Unidades de Comprimento</div>
+    <form method="POST" action="" class="content-form-convunidades">
+        {{ form_conversorunidades.csrf_token }}
+        <div class="group-form">
+            {{ form_conversorunidades.unidade_origem.label(class="label-form") }}
+            {{ form_conversorunidades.unidade_origem(class="input-form") }}
+        </div>
+        <div class="group-form">
+            {{ form_conversorunidades.unidade_destino.label(class="label-form") }}
+            {{ form_conversorunidades.unidade_destino(class="input-form") }}
+        </div>
+        <div class="group-form">
+            {{ form_conversorunidades.quantidade.label(class="label-form") }}
+            {% if form_conversorunidades.quantidade.errors %}
+                {{ form_conversorunidades.quantidade(class="input-form is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for erro in form_conversorunidades.quantidade.errors %}
+                        {{ erro }}
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form_conversorunidades.quantidade(class="input-form") }}
+            {% endif %}
+        </div>
+         <div class="group-form">
+            {{ form_conversorunidades.btn_converter_unidade(class="btn-form") }}
+        </div>
+    </form>
+    <p>{{ conversao }} {{ sigla }}</p>
+</div>
 {% endblock %}
