@@ -1,0 +1,31 @@
+.container-validdoc {
+	min-height: 100vh;
+}
+
+.content-forms {
+	display: flex;
+	gap: 1rem;
+}
+
+.form-validdocs {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.item-validdocs {
+	text-align: center;
+	margin: 1rem 0;
+	padding: 0.5rem;
+	border: 1px solid red;
+	min-width: 250px;
+	cursor: pointer;
+}
+
+.content-item-renavam,
+.content-item-titulo,
+.content-item-cnh,
+.content-item-pis,
+.content-item-cnpj,
+.content-item-cpf {
+	display: none;
+}

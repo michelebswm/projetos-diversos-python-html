@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style-validadordedocumentos.css') }}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+{% endblock %}
+
+{% block body %}
+<div class="container-validdoc">
+    <div class="content-forms">
+        <form method="POST" action="" class="form-validdocs">
+            {{ form_validador_cpf.csrf_token }}
+            <section>
+                <div class="item-validdocs" id="item-cpf">
+                    CPF
+                </div>
+                <div class="content-item-cpf">
+                    <div class="group-validdocs">
+                    {{ form_validador_cpf.cpf.label(class='label-form-validdocs') }}
+                    {{ form_validador_cpf.cpf(class='input-form-validdocs') }}
+                    </div>
+                     <div class="group-validdocs">
+                        {{ form_validador_cpf.btn_validar_cpf(class='btn-form-validdocs') }}
+                    </div>
+                </div>
+                {% if validacao_result.get('cpf') %}
+                    <div class="result">
+                        {{ validacao_result['cpf'] }}
+                    </div>
+                {% endif %}
+            </section>
+        </form>
+        <form method="POST" action="" class="form-validdocs">
+            {{ form_validador_cnpj.csrf_token }}
+            <section>
+                <div class="item-validdocs" id="item-cnpj">
+                        CNPJ
+                </div>
+                <div class="content-item-cnpj">
+                    <div class="group-validdocs">
+                    {{ form_validador_cnpj.cnpj.label(class='label-form-validdocs') }}
+                    {{ form_validador_cnpj.cnpj(class='input-form-validdocs') }}
+                    </div>
+                     <div class="group-validdocs">
+                        {{ form_validador_cnpj.btn_validar_cnpj(class='btn-form-validdocs') }}
+                    </div>
+                </div>
+                {% if validacao_result.get('cnpj') %}
+                    {{ validacao_result['cnpj'] }}
+                {% endif %}
+            </section>
+        </form>
+    </div>
+</div>
+<script src="{{url_for('static', filename='/js/style-validdocs.js')}}"></script>
+{% endblock %}

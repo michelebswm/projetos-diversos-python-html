@@ -110,6 +110,11 @@ a {
 	color: #fff;
 }
 
+.docs {
+	background-color: #3d5a80;
+	color: #fff;
+}
+
 /* Estilização Navbar */
 header {
 	padding: 10px 40px;

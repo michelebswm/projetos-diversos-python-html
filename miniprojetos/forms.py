@@ -65,3 +65,33 @@ class FormConversorUnidades(FlaskForm):
     quantidade = FloatField('Quantidade', validators=([DataRequired(), NumberRange(0, 1E+20)]))
     casas_decimais = IntegerField('Casas decimais', validators=[DataRequired(), NumberRange(min=1, max=12, message='Limite a ser gerado')])
     btn_converter_unidade = SubmitField('Converter')
+
+
+class FormValidadorCpf(FlaskForm):
+    cpf = StringField('CPF', validators=[DataRequired(message='Campo obrigatório')])
+    btn_validar_cpf = SubmitField('Validar')
+
+
+class FormValidadorCnpj(FlaskForm):
+    cnpj = StringField('CNPJ', validators=[DataRequired(message='Campo obrigatório')])
+    btn_validar_cnpj = SubmitField('Validar')
+
+
+class FormValidadorPis(FlaskForm):
+    pis = StringField('PIS', validators=[DataRequired(message='Campo obrigatório')])
+    btn_validar_pis = SubmitField('Validar')
+
+
+class FormValidadorCnh(FlaskForm):
+    cnh = StringField('CNH', validators=[DataRequired(message='Campo obrigatório')])
+    btn_validar_cnh = SubmitField('Validar')
+
+
+class FormValidadorTitulo(FlaskForm):
+    titulo = StringField('Titulo Eleitoral', validators=[DataRequired(message='Campo obrigatório')])
+    btn_validar_titulo = SubmitField('Validar')
+
+
+class FormValidadorRenavam(FlaskForm):
+    renavam = StringField('RENAVAM', validators=[DataRequired(message='Campo obrigatório')])
+    btn_validar_renavam = SubmitField('Validar')

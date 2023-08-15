@@ -1,12 +1,13 @@
 from flask import Flask, render_template, url_for, request, flash, session, redirect
 from miniprojetos import app
-from miniprojetos.forms import FormGeradorSenha, FormGeradorCitacao, FormGeradorCitacaoPensador, FormTradutor, FormConversorMoeda, FormConversorUnidades
+from miniprojetos.forms import (FormGeradorSenha, FormGeradorCitacao, FormGeradorCitacaoPensador, FormTradutor, FormConversorMoeda, FormConversorUnidades,
+                                FormValidadorCpf, FormValidadorCnpj, FormValidadorPis, FormValidadorCnh, FormValidadorTitulo, FormValidadorRenavam)
 import requests
 import time
 from googletrans import Translator
 import secrets
 import string
-
+import validate_docbr as valid
 
 
 @app.route("/")
@@ -188,3 +189,70 @@ def conversor_unidades():
         casas_decimais = form_conversorunidades.casas_decimais.data
         conversao, sigla = converte_un(quantidade, unidade_origem, unidade_destino, casas_decimais)
     return render_template('conversorunidades.html', form_conversorunidades=form_conversorunidades, conversao=conversao, sigla=sigla)
+
+
+def validar_cpf(cpf):
+    return valid.CPF().validate(cpf)
+
+def validar_cnpj(cnpj):
+    return valid.CNPJ().validate(cnpj)
+
+def validar_pis(pis):
+    return valid.PIS().validate(pis)
+
+def validar_cnh(cnh):
+    return valid.CNH().validate(cnh)
+
+def validar_TituloEleitoral(titulo):
+    return valid.TituloEleitoral().validate(titulo)
+
+def validar_renavam(renavam):
+    return valid.RENAVAM().validate(renavam)
+
+@app.route('/validadordedocumentos', methods=['GET', 'POST'])
+def validador_documentos():
+    form_validador_cpf = FormValidadorCpf()
+    form_validador_cnpj = FormValidadorCnpj()
+    # form_validador_pis = FormValidadorPis()
+    # form_validador_cnh = FormValidadorCnh()
+    # form_validador_titulo = FormValidadorTitulo()
+    # form_validador_renavam = FormValidadorRenavam()
+
+    validacao_result = {}
+
+    if form_validador_cpf.validate_on_submit() and 'btn_validar_cpf' in request.form:
+        cpf = form_validador_cpf.cpf.data
+        validacao_result['cpf'] = ('CPF válido!' if validar_cpf(cpf) else 'CPF inválido!')
+        print(validacao_result['cpf'])
+        print(validacao_result)
+    if form_validador_cnpj.validate_on_submit() and 'btn_validar_cnpj' in request.form:
+        cnpj = form_validador_cnpj.cnpj.data
+        validacao_result['cnpj'] = ('CNPJ válido!' if validar_cnpj(cnpj) else 'CNPJ inválido!')
+        print(validacao_result['cnpj'])
+        print(validacao_result)
+        pass
+    #
+    # if form_validador_pis.validate_on_submit() and 'btn_validar_pis' in request.form:
+    #     # Lógica de validação de PIS
+    #     pass
+    #
+    # if form_validador_cnh.validate_on_submit() and 'btn_validar_cnh' in request.form:
+    #     # Lógica de validação de CNH
+    #     pass
+    #
+    # if form_validador_titulo.validate_on_submit() and 'btn_validar_titulo' in request.form:
+    #     # Lógica de validação de Título Eleitoral
+    #     pass
+    #
+    # if form_validador_renavam.validate_on_submit() and 'btn_validar_renavam' in request.form:
+    #     # Lógica de validação de RENAVAM
+    #     pass
+
+    return render_template('validadordedocumentos.html',
+                           form_validador_cpf=form_validador_cpf,
+                           form_validador_cnpj=form_validador_cnpj,
+                           # form_validador_pis=form_validador_pis,
+                           # form_validador_cnh=form_validador_cnh,
+                           # form_validador_titulo=form_validador_titulo,
+                           # form_validador_renavam=form_validador_renavam,
+                           validacao_result =validacao_result )
