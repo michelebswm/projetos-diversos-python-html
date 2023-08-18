@@ -1,77 +1,54 @@
 function ativaFormularioCpf() {
 	const contentCpf = document.querySelector(".content-item-cpf");
-	if (
-		contentCpf.style.display === "none" ||
-		contentCpf.style.display === ""
-	) {
-		contentCpf.style.display = "block";
+	if (contentCpf.style.maxHeight) {
+		contentCpf.style.maxHeight = null;
 	} else {
-		contentCpf.style.display = "none";
+		contentCpf.style.maxHeight = contentCpf.scrollHeight + "px";
 	}
 }
 
 function ativaFormularioCnpj() {
 	const contentCnpj = document.querySelector(".content-item-cnpj");
-
-	if (
-		contentCnpj.style.display === "none" ||
-		contentCnpj.style.display === ""
-	) {
-		contentCnpj.style.display = "block";
+	if (contentCnpj.style.maxHeight) {
+		contentCnpj.style.maxHeight = null;
 	} else {
-		contentCnpj.style.display = "none";
+		contentCnpj.style.maxHeight = contentCnpj.scrollHeight + "px";
 	}
 }
 
 function ativaFormularioPis() {
 	const contentPis = document.querySelector(".content-item-pis");
-
-	if (
-		contentPis.style.display === "none" ||
-		contentPis.style.display === ""
-	) {
-		contentPis.style.display = "block";
+	if (contentPis.style.maxHeight) {
+		contentPis.style.maxHeight = null;
 	} else {
-		contentPis.style.display = "none";
+		contentPis.style.maxHeight = contentPis.scrollHeight + "px";
 	}
 }
 
 function ativaFormularioCnh() {
 	const contentCnh = document.querySelector(".content-item-cnh");
-
-	if (
-		contentCnh.style.display === "none" ||
-		contentCnh.style.display === ""
-	) {
-		contentCnh.style.display = "block";
+	if (contentCnh.style.maxHeight) {
+		contentCnh.style.maxHeight = null;
 	} else {
-		contentCnh.style.display = "none";
+		contentCnh.style.maxHeight = contentCnh.scrollHeight + "px";
 	}
 }
 
 function ativaFormularioTitulo() {
 	const contentTitulo = document.querySelector(".content-item-titulo");
-
-	if (
-		contentTitulo.style.display === "none" ||
-		contentTitulo.style.display === ""
-	) {
-		contentTitulo.style.display = "block";
+	if (contentTitulo.style.maxHeight) {
+		contentTitulo.style.maxHeight = null;
 	} else {
-		contentTitulo.style.display = "none";
+		contentTitulo.style.maxHeight = contentTitulo.scrollHeight + "px";
 	}
 }
 
 function ativaFormularioRenavam() {
 	const contentRenavam = document.querySelector(".content-item-renavam");
-
-	if (
-		contentRenavam.style.display === "none" ||
-		contentRenavam.style.display === ""
-	) {
-		contentRenavam.style.display = "block";
+	if (contentRenavam.style.maxHeight) {
+		contentRenavam.style.maxHeight = null;
 	} else {
-		contentRenavam.style.display = "none";
+		contentRenavam.style.maxHeight = contentRenavam.scrollHeight + "px";
 	}
 }
 

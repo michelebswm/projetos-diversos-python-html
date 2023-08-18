@@ -213,46 +213,42 @@ def validar_renavam(renavam):
 def validador_documentos():
     form_validador_cpf = FormValidadorCpf()
     form_validador_cnpj = FormValidadorCnpj()
-    # form_validador_pis = FormValidadorPis()
-    # form_validador_cnh = FormValidadorCnh()
-    # form_validador_titulo = FormValidadorTitulo()
-    # form_validador_renavam = FormValidadorRenavam()
+    form_validador_pis = FormValidadorPis()
+    form_validador_cnh = FormValidadorCnh()
+    form_validador_titulo = FormValidadorTitulo()
+    form_validador_renavam = FormValidadorRenavam()
 
     validacao_result = {}
 
     if form_validador_cpf.validate_on_submit() and 'btn_validar_cpf' in request.form:
         cpf = form_validador_cpf.cpf.data
         validacao_result['cpf'] = ('CPF válido!' if validar_cpf(cpf) else 'CPF inválido!')
-        print(validacao_result['cpf'])
-        print(validacao_result)
+
     if form_validador_cnpj.validate_on_submit() and 'btn_validar_cnpj' in request.form:
         cnpj = form_validador_cnpj.cnpj.data
         validacao_result['cnpj'] = ('CNPJ válido!' if validar_cnpj(cnpj) else 'CNPJ inválido!')
-        print(validacao_result['cnpj'])
-        print(validacao_result)
-        pass
-    #
-    # if form_validador_pis.validate_on_submit() and 'btn_validar_pis' in request.form:
-    #     # Lógica de validação de PIS
-    #     pass
-    #
-    # if form_validador_cnh.validate_on_submit() and 'btn_validar_cnh' in request.form:
-    #     # Lógica de validação de CNH
-    #     pass
-    #
-    # if form_validador_titulo.validate_on_submit() and 'btn_validar_titulo' in request.form:
-    #     # Lógica de validação de Título Eleitoral
-    #     pass
-    #
-    # if form_validador_renavam.validate_on_submit() and 'btn_validar_renavam' in request.form:
-    #     # Lógica de validação de RENAVAM
-    #     pass
+
+    if form_validador_pis.validate_on_submit() and 'btn_validar_pis' in request.form:
+        pis = form_validador_pis.pis.data
+        validacao_result['pis'] = ('PIS válido!' if validar_pis(pis) else 'PIS inválido!')
+
+    if form_validador_cnh.validate_on_submit() and 'btn_validar_cnh' in request.form:
+        cnh = form_validador_cnh.cnh.data
+        validacao_result['cnh'] = ('CNH válido!' if validar_cnh(cnh) else 'CNH inválido!')
+
+    if form_validador_titulo.validate_on_submit() and 'btn_validar_titulo' in request.form:
+        titulo = form_validador_titulo.titulo.data
+        validacao_result['titulo'] = ('Título Eleitoral válido!' if validar_TituloEleitoral(titulo) else 'Título Eleitoral inválido!')
+
+    if form_validador_renavam.validate_on_submit() and 'btn_validar_renavam' in request.form:
+        renavam = form_validador_renavam.renavam.data
+        validacao_result['renavam'] = ('RENAVAM válido!' if validar_renavam(renavam) else 'RENAVAM inválido!')
 
     return render_template('validadordedocumentos.html',
                            form_validador_cpf=form_validador_cpf,
                            form_validador_cnpj=form_validador_cnpj,
-                           # form_validador_pis=form_validador_pis,
-                           # form_validador_cnh=form_validador_cnh,
-                           # form_validador_titulo=form_validador_titulo,
-                           # form_validador_renavam=form_validador_renavam,
+                           form_validador_pis=form_validador_pis,
+                           form_validador_cnh=form_validador_cnh,
+                           form_validador_titulo=form_validador_titulo,
+                           form_validador_renavam=form_validador_renavam,
                            validacao_result =validacao_result )

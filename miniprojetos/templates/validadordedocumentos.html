@@ -8,7 +8,9 @@
 
 {% block body %}
 <div class="container-validdoc">
+    <div class="title">Validação de Documentos</div>
     <div class="content-forms">
+
         <form method="POST" action="" class="form-validdocs">
             {{ form_validador_cpf.csrf_token }}
             <section>
@@ -17,11 +19,8 @@
                 </div>
                 <div class="content-item-cpf">
                     <div class="group-validdocs">
-                    {{ form_validador_cpf.cpf.label(class='label-form-validdocs') }}
                     {{ form_validador_cpf.cpf(class='input-form-validdocs') }}
-                    </div>
-                     <div class="group-validdocs">
-                        {{ form_validador_cpf.btn_validar_cpf(class='btn-form-validdocs') }}
+                    {{ form_validador_cpf.btn_validar_cpf(class='btn-form-validdocs') }}
                     </div>
                 </div>
                 {% if validacao_result.get('cpf') %}
@@ -31,6 +30,7 @@
                 {% endif %}
             </section>
         </form>
+
         <form method="POST" action="" class="form-validdocs">
             {{ form_validador_cnpj.csrf_token }}
             <section>
@@ -39,15 +39,94 @@
                 </div>
                 <div class="content-item-cnpj">
                     <div class="group-validdocs">
-                    {{ form_validador_cnpj.cnpj.label(class='label-form-validdocs') }}
                     {{ form_validador_cnpj.cnpj(class='input-form-validdocs') }}
-                    </div>
-                     <div class="group-validdocs">
-                        {{ form_validador_cnpj.btn_validar_cnpj(class='btn-form-validdocs') }}
+                    {{ form_validador_cnpj.btn_validar_cnpj(class='btn-form-validdocs') }}
                     </div>
                 </div>
                 {% if validacao_result.get('cnpj') %}
+                <div class="result">
                     {{ validacao_result['cnpj'] }}
+                </div>
+                {% endif %}
+            </section>
+        </form>
+
+        <form method="POST" action="" class="form-validdocs">
+            {{ form_validador_pis.csrf_token }}
+            <section>
+                <div class="item-validdocs" id="item-pis">
+                    PIS
+                </div>
+                <div class="content-item-pis">
+                    <div class="group-validdocs">
+                    {{ form_validador_pis.pis(class='input-form-validdocs') }}
+                    {{ form_validador_pis.btn_validar_pis(class='btn-form-validdocs') }}
+                    </div>
+                </div>
+                {% if validacao_result.get('pis') %}
+                 <div class="result">
+                    {{ validacao_result['pis'] }}
+                 </div>
+                {% endif %}
+            </section>
+        </form>
+
+        <form method="POST" action="" class="form-validdocs">
+            {{ form_validador_cnh.csrf_token }}
+            <section>
+               <div class="item-validdocs" id="item-cnh">
+                    CNH
+                </div>
+                <div class="content-item-cnh">
+                    <div class="group-validdocs">
+                    {{ form_validador_cnh.cnh(class='input-form-validdocs') }}
+                    {{ form_validador_cnh.btn_validar_cnh(class='btn-form-validdocs') }}
+                    </div>
+                </div>
+                {% if validacao_result.get('cnh') %}
+                 <div class="result">
+                    {{ validacao_result['cnh'] }}
+                 </div>
+                {% endif %}
+            </section>
+        </form>
+
+        <form method="POST" action="" class="form-validdocs">
+            {{ form_validador_titulo.csrf_token }}
+            <section>
+                <div class="item-validdocs" id="item-titulo">
+                    Titulo Eleitoral
+                </div>
+                <div class="content-item-titulo">
+                    <div class="group-validdocs">
+                    {{ form_validador_titulo.titulo(class='input-form-validdocs') }}
+                    {{ form_validador_titulo.btn_validar_titulo(class='btn-form-validdocs') }}
+                    </div>
+                </div>
+                {% if validacao_result.get('titulo') %}
+                 <div class="result">
+                    {{ validacao_result['titulo'] }}
+                 </div>
+                {% endif %}
+            </section>
+        </form>
+
+        <form method="POST" action="" class="form-validdocs">
+            {{ form_validador_renavam.csrf_token }}
+            <section>
+                <div class="item-validdocs" id="item-renavam">
+                    RENAVAM
+                </div>
+                <div class="content-item-renavam">
+                    <div class="group-validdocs">
+                    {{ form_validador_renavam.renavam(class='input-form-validdocs') }}
+                    {{ form_validador_renavam.btn_validar_renavam(class='btn-form-validdocs') }}
+                    </div>
+                </div>
+                {% if validacao_result.get('renavam') %}
+                 <div class="result">
+                    {{ validacao_result['renavam'] }}
+                 </div>
                 {% endif %}
             </section>
         </form>
