@@ -9,7 +9,7 @@ Ferramentas:
 4. Conversor de Moedas: Converte moedas de a cordo com a cotação atual.
 5. Conversor de Unidades: Converte diferentes unidades de medida.
 6. Cotação de Moeda: Fornece cotações de câmbio.
-7. Validador de CPF: Valida números de CPF brasileiros.
+7. Validador de Documentos: Valida números de CPF, CNPJ, PIS, CNH, Titulo Eleitoral, Renavam.
 8. Organizador de Arquivos: Organiza arquivos em um diretório especificado.
 9. Contagem Regressiva: Faz a contagem regressiva até uma data e hora especificadas.
 10. Gerador de Gráficos: Gera gráficos com base em dados.
