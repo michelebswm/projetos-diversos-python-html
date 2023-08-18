@@ -217,7 +217,6 @@ def validador_documentos():
     form_validador_cnh = FormValidadorCnh()
     form_validador_titulo = FormValidadorTitulo()
     form_validador_renavam = FormValidadorRenavam()
-
     validacao_result = {}
 
     if form_validador_cpf.validate_on_submit() and 'btn_validar_cpf' in request.form:
